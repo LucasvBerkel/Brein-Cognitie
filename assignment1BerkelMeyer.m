@@ -6,9 +6,9 @@
 % 3) Matlabs learning module on flow control:
 % http://nl.mathworks.com/help/matlab/learn_matlab/flow-control.html?requestedDomain=www.mathworks.com
 
-% Team: <name>
-% Student: <name> <uvaID>
-% Student: <name> <uvaID>
+% Team: 39
+% Student: Joël Meyer 10003539
+% Student: Lucas van Berkel 10747958
 
 %% Part 1: Storing information: Variables, matrices and cell arrays
 % variables:
@@ -192,23 +192,49 @@ A = [3 1 6 ; 5 2 7]
 % A is 2x3 and [ x' y'] is 3x2.
 
 %e) B = [x ; y']
-B = [ x ; y']
+
+% Fails to execute because the dimensions of x and y' disagree.
+% x = 1x3 and y' = 3x1
+
 %f) B = [x ; y]
+
+% Correctly executes because dimensions of x and y agree.
+
 %g) A - 3
+
+% Correctly executes because subtraction is elementwise.
 
 % Given
 A = [2 7 9 7 ; 3 1 5 6 ; 8 1 2 5]
 %3) explain the results of the following commands:
 
 %a) A'
+
+% Returns the transpose of the matrix A
+
 %b) A(:,[1 4])
+
+% Returns columns 1 and 4
+
 %c) A([2 3],[3 1])
+
+% Returns elements of row 2 and 3 and column 3 and 1
+
 %d) reshape(A,2,6)
+
+% Returns transformed matrix with 2 rows and 6 columns
+
 %e) A(:)
+
+% Returns column vector, corresponding to original matrix
+
 %f) flipud(A)
+
+% Returns matrix transformed upsidedown
+
 %g) fliplr(A)
 
-
+% Returns matrix transformd leftright
 
 
 %% Part 4: Indexing
@@ -221,20 +247,48 @@ x = [3 1 5 7 9 2 6],
 %1) Explain the output of the commands:
 
 %a) x(3)
+
+% Returns third element
+
 %b) x(1:7)
+
+% Returns elements 1 to 7
+
 %c) x(1:end)
+
+% Returns elements 1 to end
+
 %d) x(1:end-1)
+
+% Returns elements 1 to secondlast
+
 %e) x(6:-2:1)
+
+% Returns elements 6 to 1, with stepsize 2
+
 %f) x([1 6 2 1 1])
+
+% Return elements in 1,6,2,1,1 in same order
 
 %Given
 A = [ 2 4 1 ; 6 7 2 ; 3 5 9], 
 %2) provide the commands needed to
 
 %a) assign the first row of A to a vector called x
+
+% x = A(1,:)
+
 %b) assign the last 2 rows of A to an array called y
+
+% y = A(end-1:end,:)
+
 %c) compute the sum over the columns of A
+
+% sum(A(:,:))
+
 %d) compute the sum over the rows of A
+
+% sum(A(:,:)')'
 
 %Given
 randn('seed',42)
@@ -242,10 +296,25 @@ F = randn(5,10);
 %3) privide the commands needed to
 
 %a) assign the odd columns to an array called p
+F
+% p = F(:,1:2:end)
+
 %b) assign the even rown to an array called q
+
+% q = F(2:2:end,:)
+
 %c) give the coordinates of every positive number in vectors row and col
+
+% [row, col] = find(F.*(F>0))
+
 %d) assign the negative numbers to a vector called x (hint: use logical indexing)
+
+% [row, col, x] = find(F.*(F<0));
+% x
+
 %e) change every numer in F between [-0.2,0.2] to 0
+
+% F(F>-0.2 & F<0.2) = 0
 
 
 
