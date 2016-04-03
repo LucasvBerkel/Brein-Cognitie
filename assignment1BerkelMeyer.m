@@ -174,27 +174,28 @@ A = [3 1 6 ; 5 2 7]
 
 %a) x + y
 
-% Correctly executes because x has the same number of columns as y. 
+% Correctly executes because x has the same dimensions as y. 
+% x = 1x3 and y = 1x3
 
 %b) x + A
 
 % Fails to execute because the dimensions of x dont agree with the
-% dimensions of A.
+% dimensions of A. x = 1x3 and A = 2x3.
 
 %c) x' + y
 
 % Fails to execute because the transpose of x causes the dimensions of x'
-% and y to disagree. A is 2x3 and [x' y'] is 3x2.
+% and y to disagree. x' = 3x1 and y = 1x3.
 
 %d) A - [x' y']
 
 % Fails to execute because the dimensions of A and [ x' y'] disagree. 
-% A is 2x3 and [ x' y'] is 3x2.
+% A = 2x3 and [ x' y'] = 3x2.
 
 %e) B = [x ; y']
 
 % Fails to execute because the dimensions of x and y' disagree.
-% x = 1x3 and y' = 3x1
+% x = 1x3 and y' = 3x1. Therefore the concatenation can't be executed.
 
 %f) B = [x ; y]
 
@@ -293,13 +294,13 @@ A = [ 2 4 1 ; 6 7 2 ; 3 5 9],
 %Given
 randn('seed',42)
 F = randn(5,10);
-%3) privide the commands needed to
+%3) provide the commands needed to
 
 %a) assign the odd columns to an array called p
-F
+
 % p = F(:,1:2:end)
 
-%b) assign the even rown to an array called q
+%b) assign the even rows to an array called q
 
 % q = F(2:2:end,:)
 
@@ -312,7 +313,7 @@ F
 % [row, col, x] = find(F.*(F<0));
 % x
 
-%e) change every numer in F between [-0.2,0.2] to 0
+%e) change every number in F between [-0.2,0.2] to 0
 
 % F(F>-0.2 & F<0.2) = 0
 
@@ -434,8 +435,21 @@ X = randn(5,6);
 %   of numbers in a range is zero, it should be ommited.
 %   (hint: use fprintf or disp)
 
-
-
+if X(X > -inf & X < -1)
+    range1 = length(X( X(:) > -inf & X(:) < -1));
+    disp(range1)
+elseif X(X > -1 & X < 0)
+    range2 = length(X( X(:) > -1 & X(:) < 0)); 
+    disp(range2)
+elseif X(X == 0)
+    disp('Zero')
+elseif X(X > 0 & X <= 1)
+    range4 = length(X( X(:) > 0 & X(:) <= 1)); 
+    disp(range4)
+elseif X(X > 1 & X < inf)
+    range5 = length(X( X(:) > 1 & X(:) < inf));
+    disp(range5)
+end
 
 
 %% Part 6: Loops 
