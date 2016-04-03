@@ -545,6 +545,37 @@ x
 %   test several lengths of a vector and loop over it with a for-loop, a while-loop and MATLAB's
 %   matrix functions. use tic,toc for timing.
 
+clear all
+
+length = input('Enter length of vector: ');
+vector = randi(100,length,1);
+
+forVector = vector;
+
+disp('For-loop: ');
+tic
+for n =1:length
+    forVector(n) = forVector(n)*forVector(n);
+end
+toc
+
+whileVector = vector;
+
+disp('While-loop: ');
+tic
+n = 1;
+while n<length
+    whileVector(n) = whileVector(n)*whileVector(n);
+    n = n + 1;
+end
+toc
+
+matrixVector = vector;
+
+disp('Matrixcalculation: ');
+tic
+matrixVector = matrixVector.*matrixVector;
+toc
 
 
 
@@ -586,13 +617,21 @@ help max % also try: doc max
 %   the first n numbers of the fibonachi sequence.
 %   example: fibon(6) -> [1 1 2 3 5 8]
 
+vector = fibon(6)
+vector = fibon(15)
+
 %2) Write a function [minimum,Q1,med,Q3,maximum] = five_number_summary(x)
 %   that returns the five number summary of a vector x.
+
+vector = [0 20 454 8 10];
+[minumum, Q1, med, Q3, maximum] = five_number_summary(vector)
+
 
 %3) Write a function x = bounds(up,low) that returns a vector x with random
 %   numbers between [low,up]. Make it possible that low has a default value
 %   of 0 when it is omitted
-
+%%
+vector = bounds(,20)
 
 
 
