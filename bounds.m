@@ -1,11 +1,16 @@
 function [ vector ] = bounds( low, up )
-if nargin < 2
-    low = 0;
+switch nargin
+    case 1
+        underbound = 0;
+        highbound = low;
+    case 2
+        underbound = low;
+        highbound = up;
 end
 
 vector = rand(10, 1);
-vector = vector*(up-low);
-vector = vector+low;
+vector = vector*(highbound-underbound);
+vector = vector+underbound;
 return
 
 

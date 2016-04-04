@@ -630,8 +630,9 @@ vector = [0 20 454 8 10];
 %3) Write a function x = bounds(up,low) that returns a vector x with random
 %   numbers between [low,up]. Make it possible that low has a default value
 %   of 0 when it is omitted
-%%
-vector = bounds(,20)
+
+vector = bounds(8,10)
+vector = bounds(2)
 
 
 
@@ -755,7 +756,28 @@ end
 
 %1) Plot the results from your experiment with loops of Part 6. Make sure
 %   to include a title, axis labels and a legend.
+%%
+clear all
 
+vectorLength1 = 1000000;
+vectorLength2 = 10000000;
+vectorLength3 = 100000000;
+
+[timeFor1, timeWhile1, timeMatrix1] = calculateTime(vectorLength1);
+[timeFor2, timeWhile2, timeMatrix2] = calculateTime(vectorLength2);
+[timeFor3, timeWhile3, timeMatrix3] = calculateTime(vectorLength3);
+
+%%
+
+figure
+title('Results loop calculations')
+hold on
+semilogx([vectorLength1 vectorLength2 vectorLength3], [timeFor1 timeFor2 timeFor3]);
+semilogx([vectorLength1 vectorLength2 vectorLength3], [timeWhile1 timeWhile2 timeWhile3])
+semilogx([vectorLength1 vectorLength2 vectorLength3], [timeMatrix1 timeMatrix2 timeMatrix3])
+xlabel('Number of elements in vector');
+ylabel('Time in seconds');
+legend({'For-loop' 'While-loop' 'MatrixCalculations'});
 
 
 
@@ -788,10 +810,13 @@ for subploti=1:4
         title('Plotting all colors')
     end
 end
-
+%%
 %1) Plot the picture of amsterdam. 
 %2) On top of it, plot a thick red line going from (approximately) UvA to centraal station.
 %     Remember that a line has a start and end point for X and Y coordinates. 
 %3) Plot a magenta star where British tourists like to go.
+clear all
 
+im = imread('amsterdam.bmp');
+image(im)
 
