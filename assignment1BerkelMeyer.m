@@ -68,7 +68,11 @@ data.favorite_color
 
 %1) fill in your data on the third place in the array-structure
 
-
+data(3).name='Joel/Lucas';
+data(3).course_position='student';
+data(3).favorite_toothpaste_flavor='mint'; 
+data(3).number_of_watches=2;
+data(3).favorite_color=[ 0 1 0 ];
 
 
 %% Part 2: Basic arithmatic
