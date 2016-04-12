@@ -1,5 +1,4 @@
-values;
-values = resetValues(values);
+values = resetValues();
 question = 'Do you want to loop a certain amount of iterations?'; 
 request = input(question,'s');
 if strcmp(request, 'no')
@@ -29,7 +28,7 @@ elseif strcmp(request, 'yes')
     plot(X,Y);
     while strcmp(input('Do you want to add another line? ', 's'), 'yes')
         newLearningRate = input('What is the new learningRate? ');
-        values = resetValues(values);
+        values = resetValues();
         values.learningRate = newLearningRate;
         X = 0:times;
         Y = zeros(1, times+1);
