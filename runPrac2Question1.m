@@ -26,6 +26,10 @@ elseif strcmp(request, 'yes')
     disp('New association = ');
     disp(values.currentAssociation);
     plot(X,Y);
+    legend({'Learningrate = 0.4'});
+    xlabel('Number of trials');
+    ylabel('Current amount of association');
+    title('Association over number of trials');
     while strcmp(input('Do you want to add another line? ', 's'), 'yes')
         newLearningRate = input('What is the new learningRate? ');
         values = resetValues();

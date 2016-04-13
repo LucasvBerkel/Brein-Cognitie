@@ -31,3 +31,7 @@ hold on;
 plot(X, Y_A);
 plot(X, Y_B);
 hold off;
+title('Association after number of trials, example of conditional inhibition')
+xlabel('Number of trials');
+ylabel('Current association');
+legend({'Association A(learningrate = 0.1)' 'Association B(learningrate = 0.1)'},'Location','east');

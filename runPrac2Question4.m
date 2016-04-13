@@ -2,8 +2,8 @@ valuesA = resetValues();
 valuesB = resetValues();
 valuesTotal = resetValues();
 
-valuesA.learningRate = 0.05;
-valuesB.learningRate = 0.005;
+valuesA.learningRate = 0.1;
+valuesB.learningRate = 0.5;
 valuesA.currentAssociation = 80;
 valuesTotal.currentAssociation = 80;
 
@@ -35,7 +35,7 @@ plot(X, Y_Total);
 plot(X, Y_A);
 plot(X, Y_B);
 
-title('Association after number of trials')
+title('Association after number of trials, example of blocking')
 xlabel('Number of trials');
 ylabel('Current association');
-legend({'Total association' 'Association A' 'Association B'});
+legend({'Total association' 'Association A(learningrate = 0.1)' 'Association B(learningrate = 0.5)'});

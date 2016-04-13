@@ -35,4 +35,4 @@ plot(X, Y_B);
 title('Association after number of trials')
 xlabel('Number of trials');
 ylabel('Current association');
-legend({'Total association' 'Association A' 'Association B'});
+legend({'Total association' 'Association A(learningrate = 0.4)' 'Association B(learningrate = 0.1)'});

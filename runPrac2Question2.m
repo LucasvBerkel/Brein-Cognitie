@@ -25,5 +25,8 @@ while values.currentAssociation > limit
 end
 disp('Amount of iterations till given limit: ');
 disp(counter)
-
 plot(X,Y);
+xlabel('Number of trials');
+ylabel('Current amount of association');
+legend({'learningrate = 0.01'});
+title('Extinction over number of trials');
