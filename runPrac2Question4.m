@@ -2,13 +2,14 @@ valuesA = resetValues();
 valuesB = resetValues();
 valuesTotal = resetValues();
 
-valuesB.learningRate = 0.1;
+valuesA.learningRate = 0.05;
+valuesB.learningRate = 0.005;
 valuesA.currentAssociation = 80;
 valuesTotal.currentAssociation = 80;
 
-Y_A = 0;
-Y_B = 0;
-Y_Total = 0;
+Y_A = valuesA.currentAssociation;
+Y_B = valuesB.currentAssociation;
+Y_Total = valuesTotal.currentAssociation;
 X = 0;
 
 question = 'How many times do you want to loop? ';

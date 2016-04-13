@@ -7,6 +7,7 @@ disp('Extinsion after one trial:')
 disp(values.currentAssociation)
 
 values = resetValues();
+values.learningRate = 0.01;
 values.maximumAssociation = 0;
 values.currentAssociation = 100;
 
