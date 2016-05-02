@@ -11,7 +11,7 @@
 %classificatie uitvoeren om uiteindelijk onze hoofdvraag te beantwoorden:
 %Kunnen we op basis van fMRI-patronen voorspellen of een proefpersoon naar opwaartse of neerwaartse beweging kijkt?
 clear all; close all;
-data_dir = 'C:\Users\Lucas\Documents\Uni\Brein-Cognitie'; %%%%%Geef hier de directory waar de datafile is opgeslagen
+data_dir = '/Users/RJM/Desktop/Brein-Cognitie'; %%%%%Geef hier de directory waar de datafile is opgeslagen
 load(fullfile(data_dir,'data_struct'));
 subjects = {'S02','S03','S04','S06','S07'}; %We gaan de data van 5 proefpersonen analyseren. Nummer S01 en S05 zijn geexcludeerd; S01 viel in slaap tijdens het experiment; S05 bewoog teveel tijdens het scannen zodat de data onbruikbaar werd.
 rois = {'lOC','rOC'}; %We bekijken fMRI-patronen in twee 'regions of interest'(ROIs): de linker en rechter visuele cortex
@@ -36,6 +36,7 @@ vox_sel = [10 50 100 200 300 400 500]; %Aantal voxels binnen de ROIs die we will
 
 %Vraag 1
 %a. Hoeveel voxels zitten er in het brein van proefpersoon S06?
+% 97652 waargenomen voxels in het brein van S06.
 %%
 betas = data(4).betas;
 [height, width] = size(betas);
@@ -48,9 +49,17 @@ end
 totalAmountOfVoxels = height - counter
 %%
 %b. Hoeveel voxels vallen er binnen de linker visuele cortex van S06? En hoeveel binnen de rechter?
+% In linker visuele cortex: 9151 voxels. In rechter visuele cortex: 8597
+% voxels.
+
 %c. Wat is de locatie/index van de voxel met de hoogste beta waarde binnen de linker visuele cortex van S06? En wat is deze waarde?
+%Indexnummer: 84149. Beta waarde: 16.1439.
+
 %d. Wat is de laagste beta waarde binnen de linker visuele cortex van S06? Wat betekent dit denk je?
+% -7.4623, er is dus een grote spreiding van activatie in de linker visuele cortex.
+
 %e. Plot de beta waarden voor alle voxels van S06. Plaats deze plot ook in het verslag. Wat valt je op?
+% Zie verslag voor plot. Het verloop van beide lijnen lijkt aan te geven dat de ROI's evenveel actief zijn tijdens de trials.
 %%
 figure;
 hold on;
@@ -83,8 +92,13 @@ vectors = vectors(data(isubj).trial_info.incl_trials,:);
 
 %Vraag 2
 %a. Waarom selecteren we de voxels apart voor iedere proefpersoon? 
-%b. Waarom willen we alleen de meest actieve voxels selecteren?
+% De orientatie van de meest geactiveerde voxels tussen proefpersonen verschillen natuurlijk. 
+% Wanneer de meest geactiveerde voxels gekozen zouden worden op basis van een persoon, zou het 
+% mogelijk kunnen zijn dat minder geactiveerde voxels bij andere proefpersonen gekozen zullen worden.
 
+%b. Waarom willen we alleen de meest actieve voxels selecteren?
+% Vanuit activatie kan een duidelijk patroon afgelezen worden. 
+% Als minder actieve voxels gekozen zouden worden is het patroon minder duidelijk.
 
 %% Deel 2: training- en testset
 %Nu we de data hebben geselecteerd, kunnen we beginnen met de classificatie. Is het mogelijk om te voorspellen welke bewegingsrichting de proefpersoon bekeek op basis van de fMRI activatiepatronen in de visuele cortex?
@@ -178,24 +192,79 @@ hold off;
 
 %Vraag 3
 %a. Leg uit hoe cross-validatie werkt (zie het artikel van Mur et al. (2009))
+% Bij cross-validatie wordt de data verdeelt in een aantal onafhankelijke subsets, 
+% vervolgens gebruik alle subsets behalve een als trainingdata en gebruik de overgebleven subset als testdata. 
+% Herhaal dit proces totdat elke subset een keer als testdata is gebruikt. Dit wordt gedaan om te voorkomen dat 
+% datasets afhankelijk van elkaar worden.
+
 %b. Wat zijn support vectors? Hoeveel support vectors gebruikte de SVM voor de laatste classificatie (zie variabele svmstruct)?
+% Support vectors zijn een hulpmiddel te classificeren. Door het gebruik van support vectors is het aantal misgeclassificeerde 
+% voxels een stuk lager. Het totale aantal van support vectors in dit onderzoek is 16.
+
 %c. Waarom is het belangrijk dat trainings- en testset onafhankelijk zijn?
+% Door de trainingset en de testset onafhankelijk van elkaar te houden kan voorkomen 
+% worden dat het trainingsmodel overfit op de data.
+
 %d. Hoe wordt de accuracy van de SVM classificatie berekend? 
+% De accuracy van de classifier wordt getest, nadat de classifier getraind heeft op de trainingset, 
+% in procenten correct geclassificeerd in de testset, die dus onafhankelijk was.
+
 %e. Wanneer presteert de SVM op kansniveau? 
+% De SVM-classifier werkt op kans niveau als de accuracy van de classifier lager 
+% of gelijk is aan een classifier gebaseerd op kans.
+
 %f. Wat is het resultaat van deze classificatie? Wat is op basis hiervan het antwoord op onze hoofdvraag?
+% Er wordt 40 procent van de voxels correct geclassificeerd. De classifier blijkt dus slechter te werken dan een 
+% classifier op basis van kans. Op basis van deze fMRI-patronen kan dus niet bewezen worden of een proefpersoon 
+% naar een opwaarste of neerwaarste beweging kijkt.
 
 %Vraag 4
 %a. Pas het script zodanig aan dat er geloopt wordt over het aantal voxels dat we selecteren binnen de ROI (vox_sel).
+% Door te itareren over het aantal element in de lijst vox\_sel, kan de trainingset dynamisch uitgebreid worden.
+
 %b. Pas het script zodanig aan dat er nu ook nog geloopt wordt over de twee ROIs en plot de accuracy voor de twee ROIs en de verschillende waarden van vox_sel. Plaats deze plot ook in het verslag. 
+% Door te itareren over de twee mask kunnen beide ROI's getest worden op accuracy van de classifier.
+
 %c. Kunnen we de bewegingsrichting beter decoderen in de linker of de rechter visuele cortex? Licht je antwoord toe.
+% De accuracy van de rechter visuele cortex is hoger dan die van de linker visuele cortex. Het is dus beter om bewegingsrichting 
+% in de rechter visuele cortex te decoderen voor het nagaan van de bewegingsrichting.
+
 %d. Wat verwacht je voor een resultaat als je de analyse uitvoert op een hersengebied buiten de visuele cortex?
+% Aangezien we een visuele mentale functie testen en onze classificeerders
+% getraind zijn op de voxels van de visuele cortex zijn verwachten we geen 
+% relevante informatie te vergaren wanneer we gebieden buiten de visuele
+% cortex zullen analyseren.
+
 %e. Pas het script zodanig aan dat er nu ook nog geloopt wordt over de proefpersonen. Bij welke proefpersoon werkt de classificatie het beste? En in welke ROI?
+% Bij proefpersoon 4 (S04) en de rechter visuele cortex.
+
 %f. Bereken de gemiddelde accuracy over proefpersonen en plot het gemiddelde, inclusief error bars, voor de twee ROIs en de verschillende waarden van vox_sel. Plaats deze plot ook in het verslag. 
+% Zie verslag voor plot.
+
 %g. Waarom denk je dat de classificatie beter wordt naarmate er meer voxels worden geincludeerd?
+% Ondanks dat bij het includeren van meer voxels gepaard gaat met het
+% vergroten van de ruis in de data zullen indien de SVM juist getraind is
+% de patronen beter te herkennen zijn wanneer we meer voxels includeren
+% omdat zo het signaal sterker is dan wanneer we enkele voxels includeren.
+
 %h. Wat is nu het resultaat van deze classificatie? Wat is op basis hiervan het antwoord op onze hoofdvraag?
+% De resulaten te zien in de plot laten zien dat de classificatie (aanzienlijk)beter
+% dan kansniveau presteert. Daarom kunnen het antwoord op onze hoofdvraag
+% beantwoorden met: ja, op basis van fMRI-patronen kunenn we voorspellen of
+% een proefpersoon naar een opwaartse- of neerwaartse beweging kijkt.
 
 %Vraag 5
 %a. Denk je dat je opwaartse en neerwaartse beweging ook zou kunnen onderscheiden met een activation-based analysis (zie het artikel van Mur
 %et al. (2009)? Licht je antwoord toe.
+% Nee, zoals in het artikel van Mur et al. wordt toegelicht kunnen we met
+% activation-based analysis alleen zien welke gebieden er betrokken zijn
+% bij een specifieke mentale functie. Niet wat die activiteit van het
+% gebied nou betekend.
+
 %b. Wat is het voordeel van het gebruik van een pattern-information analysis, zoals de analyse die we hier gebruikt hebben, boven een
 %activation-based analysis?
+% Met pattern-information analysis kunnen we de patronen van activiteit in
+% die gebieden analyseren en toewijzen aan de representatieve inhoud van het gebied.
+% Zoals geantwoord bij vraag 5 a) kunnen we met activation-based analyse alleen zien
+% welke gebieden er betrokken zijn bij een specifieke mentale functie en 
+% niet wat die activatie nou betekend.
