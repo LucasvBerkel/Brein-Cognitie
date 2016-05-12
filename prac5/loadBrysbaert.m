@@ -1,5 +1,5 @@
 function loadBrysbaert()
-    fid = fopen('brysbaert.csv');
+    fid = fopen('brysbaertTest.csv');
     fprintf('reading...');
     out=textscan(fid, '%s', 'whitespace',',');
     fclose(fid);
@@ -24,25 +24,25 @@ function loadBrysbaert()
     data.ve = cellfun(@str2double,out{1}(33:17:end));
 
     fprintf('building...');
-    d(1097490).idx = data.idx(1097490);
-    d(1097490).participant = data.participant(1097490);
-    d(1097490).block = data.block(1097490);
-    d(1097490).order = data.order(1097490);
-    d(1097490).spelling = data.spelling(1097490);
-    d(1097490).wnw = data.wnw(1097490);
-    d(1097490).resp = data.resp(1097490);
-    d(1097490).accuracy = data.accuracy(1097490);
-    d(1097490).prev_acc = data.prev_acc(1097490);
-    d(1097490).rt = data.rt(1097490);
-    d(1097490).prev_rt = data.prev_rt(1097490);
-    d(1097490).freq = data.freq(1097490);
-    d(1097490).prev_wnv = data.prev_wnv(1097490);
-    d(1097490).fg = data.fg(1097490);
-    d(1097490).wfnw = data.wfnw(1097490);
-    d(1097490).resp_1 = data.resp_1(1097490);
-    d(1097490).ve = data.ve(1097490);
+    d(23000).idx = data.idx(23000);
+    d(23000).participant = data.participant(23000);
+    d(23000).block = data.block(23000);
+    d(23000).order = data.order(23000);
+    d(23000).spelling = data.spelling(23000);
+    d(23000).wnw = data.wnw(23000);
+    d(23000).resp = data.resp(23000);
+    d(23000).accuracy = data.accuracy(23000);
+    d(23000).prev_acc = data.prev_acc(23000);
+    d(23000).rt = data.rt(23000);
+    d(23000).prev_rt = data.prev_rt(23000);
+    d(23000).freq = data.freq(23000);
+    d(23000).prev_wnv = data.prev_wnv(23000);
+    d(23000).fg = data.fg(23000);
+    d(23000).wfnw = data.wfnw(23000);
+    d(23000).resp_1 = data.resp_1(23000);
+    d(23000).ve = data.ve(23000);
     fprintf('..');
-    for i=1:1097490
+    for i=1:23000
         d(i).idx = data.idx(i);
         d(i).participant = data.participant(i);
         d(i).block = data.block(i);

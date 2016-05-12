@@ -11,7 +11,7 @@ VRT =  1000;
 
 [v,a,Ter] = EZdiffusionfit(Pc, VRT, MRT);
 
-%%
+%% Assignment 2
 PcD = zeros(10,4);
 VRTD = zeros(10,4);
 MRTD = zeros(10,4);
@@ -41,8 +41,6 @@ xlabel('factor times startvalue(=Pc:0.9,MRT:100,VRT:1000)')
 plot(PcD(:,1),[PcD(:,3),VRTD(:,3),MRTD(:,3)]);
 legend({'Pc' 'VRT' 'MRT'})
 hold off;
-%%
-
 
 figure;
 hold on;
@@ -52,3 +50,51 @@ xlabel('factor times startvalue(=Pc:0.9,MRT:100,VRT:1000)')
 plot(PcD(:,1),[PcD(:,4),VRTD(:,4),MRTD(:,4)]);
 legend({'Pc' 'VRT' 'MRT'})
 hold off;
+%% Assignment 3
+clear all;
+dat = readdata ( 'data1.txt' );
+correct = dat(:,1);
+rt = dat(:,2);
+[y1,x1] = ksdensity(rt(correct==0)) ;
+[y2,x2] = ksdensity(rt(correct==1)) ;
+plot(x1,y1,'k',x2,y2,'r');
+
+Pc = length(find(correct))/length(correct);
+MRT = mean(rt);
+VRT = var(rt);
+
+[v, a , Ter] = EZdiffusionfit(Pc, VRT, MRT)
+
+%% Assignment 4
+dat = readdata('data2.txt');
+correct = dat(:,1);
+rt = dat(:,2);
+[y1,x1] = ksdensity(rt(correct==0)) ;
+[y2,x2] = ksdensity(rt(correct==1)) ;
+plot(x1,y1,'k',x2,y2,'r');
+
+Pc = length(find(correct))/length(correct);
+MRT = mean(rt);
+VRT = var(rt);
+
+[v, a , Ter] = EZdiffusionfit(Pc, VRT, MRT)
+
+%% Assignment 5
+clear all;
+
+loadBrysbaert();
+X = struct2table(d);
+X = table2array(X(:,[8 10]));
+%%
+correct = X(:,1);
+rt = X(:,2);
+
+[y1,x1] = ksdensity(rt(correct==0)) ;
+[y2,x2] = ksdensity(rt(correct==1)) ;
+plot(x1,y1,'k',x2,y2,'r');
+
+Pc = length(find(correct))/length(correct);
+MRT = mean(rt);
+VRT = var(rt);
+
+[v, a , Ter] = EZdiffusionfit(Pc, VRT, MRT)
