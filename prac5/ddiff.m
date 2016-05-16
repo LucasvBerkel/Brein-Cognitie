@@ -8,7 +8,7 @@ function sh3 = ddiff(t,x,a,v,Ter)
   eps=1e-15;
   k=1;
   
-  while(abs(sh1-sh2) > eps || abs(sh1-sh3) > eps)
+  while(abs(sh1-sh2) > eps | abs(sh1-sh3) > eps)
     K=k.*sin(.5.*pi.*k).*exp(-(pi.^2*k.^2)/(2.*a.^2)*(t-Ter));
     sh1=sh2;
     sh2=sh3;
