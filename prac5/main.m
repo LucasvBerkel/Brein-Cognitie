@@ -130,26 +130,44 @@ disp(str)
 str = strcat('Ter is: ',num2str(Ter));
 disp(str)
 
-%% Assigment 6.1
+%% Assignment 6.1
 clear;
 
 rng(1310);
 a=2;
-v=-2;
+v=1;
 N=500;
-Ter = .5;
+Ter = .75;
+[x,rt]=simdiff(N,a,v,Ter);
 
 [y1,x1] = ksdensity(rt(x==0)) ;
 [y2,x2] = ksdensity(rt(x==1)) ;
 plot(x1,y1,'k',x2,y2,'r');
 
-%% Assignemt 6.2
+%% Assignment 6.2
 clear;
 
 rng(1310);
 a = 1;
 v = 2;
-N=500;
-Ter = .5;
+N= 500;
+Ter =  0.5;
 [x,rt]=simdiff(N,a,v,Ter);
-sh3 = sum(log(ddiff(rt, x, a, v, Ter)/log(2)))
+
+
+rtC = rt(x==1);
+rtI = rt(x==0);
+
+y = zeros(1, length(rtC));
+for i=1:length(rtC)
+   y(i) = log(ddiff(rtC(i), 1, a, v, Ter));
+end
+
+sum(y)
+
+y = zeros(1, length(rtI));
+for i=1:length(rtI)
+    y(i) = log(ddiff(rtI(i), 0, a, v, Ter));
+end
+
+sum(y)
