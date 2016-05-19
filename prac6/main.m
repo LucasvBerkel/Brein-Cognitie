@@ -40,5 +40,87 @@ denG = (m)/(n*(n-1)/2);
 %% Opdracht 8
 dist = distance_bin(A);
 size = length(A);
-totalStep = (sum(sum(dist))/2)/((size^2-size)/2);
+averageStep = (sum(sum(dist))/2)/((size^2-size)/2);
+charpath(dist)
 %% Opdracht 9
+transitivity_bu(A)
+%% Opdracht 10
+[vectorT, vectorA] = simulateRandomNetworks(5, 5, 100);
+gammaRandom = mean(vectorT);
+lambdaRandom = mean(vectorA);
+
+gammaA = transitivity_bu(A);
+lambdaA = charpath(distance_bin(A));
+
+gamma = gammaA/gammaRandom;
+lambda = lambdaA/lambdaRandom;
+
+sigma = gamma/lambda;
+
+%% Opdracht 11
+histogram(vectorT, 50);
+histogram(vectorA, 50);
+%% Opdracht 12
+clear;
+rd = importdata('real.data.txt');
+
+rd(rd < 0.0005) = 0;
+rd(rd >= 0.0005) = 1;
+rd(logical(eye(size(rd)))) = 0;
+
+Degree = sum(rd, 2);
+maximum = max(Degree);
+DegreeDistribution = zeros(maximum+1, 1);
+for i=0:maximum
+    DegreeDistribution(i+1, :) = sum(Degree==i); 
+end
+DegreeDistribution = DegreeDistribution./(sum(Degree)/2);
+
+x = [0:maximum];
+
+bar(x, DegreeDistribution)
+%% Opdracht 13
+find(degrees_und(rd) >= 10);
+maximum = max(Degree);
+%% Opdracht 14
+[nClusters, clusterAssignment] = graphconncomp(sparse(rd))
+%% Opdracht 15
+randomNetwork = makerandCIJ_und(length(rd), sum(sum(rd)));
+gammaRandom = transitivity_bu(randomNetwork);
+lambdaRandom = charpath(distance_bin(randomNetwork));
+
+gammaA = transitivity_bu(rd);
+lambdaA = charpath(distance_bin(rd));
+
+gamma = gammaA/gammaRandom;
+lambda = lambdaA/lambdaRandom;
+
+sigma = gamma/lambda;
+%% Opdracht 16
+betweenness = betweenness_bin(rd);
+Degree = sum(rd);
+
+maximumDegree = find(Degree==max(Degree))
+maximumBetweennes = find(betweenness==max(betweenness))
+%% Opdracht 17
+clear;
+rd = importdata('real.data.txt');
+
+rd(rd < 0.00005) = 0;
+rd(rd >= 0.00005) = 1;
+rd(logical(eye(size(rd)))) = 0;
+
+Degree = sum(rd, 2);
+maximum = max(Degree);
+DegreeDistribution = zeros(maximum+1, 1);
+for i=0:maximum
+    DegreeDistribution(i+1, :) = sum(Degree==i); 
+end
+DegreeDistribution = DegreeDistribution./(sum(Degree)/2);
+
+x = [0:maximum];
+
+bar(x, DegreeDistribution)
+
+betweenness = betweenness_bin(rd);
+hist(betweenness,50)
